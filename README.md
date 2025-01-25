@@ -10,7 +10,7 @@ This is an experiment to detect removable media, especially USB memory devices, 
 ディスクボリュームの出現と消滅を検出します
 - enumerate removable volumes  
 取り外し可能なボリュームを列挙します
-- for each volume, find the parent disk and any properties that might be useful to display
+- for each volume, find the parent disk and any properties that might be useful to display  
 それぞれのボリュームについて、親ディスクや表示して役立ちそうなそうなプロパティを見つけます
 - eject the parent disk of the volume  
 ボリュームの親ディスクを取り出します
@@ -20,7 +20,7 @@ This is an experiment to detect removable media, especially USB memory devices, 
 - Windows
 - macOs
 
-It may work on older versions of the OS since it does not use the latest API.
+It may work on older versions of the OS since it does not use the latest API.  
 最新のAPIを利用しているわけではないので、古いバージョンのOSでも動くかもしれません。
 
 ## Requirement
