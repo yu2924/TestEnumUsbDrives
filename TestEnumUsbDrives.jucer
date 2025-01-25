@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="lxIOrh" name="TestEnumUsbDrives" projectType="guiapp" useAppConfig="0"
+              addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1">
+  <MAINGROUP id="CVw2jj" name="TestEnumUsbDrives">
+    <GROUP id="{9B7DF864-3DEB-5851-7BDA-BDCE115FCA2B}" name="Source">
+      <GROUP id="{63226652-D513-1E4D-587B-F1BDD61F5FA3}" name="UsbVolumeList">
+        <FILE id="gMmba7" name="UsbVolumeList.h" compile="0" resource="0" file="Source/UsbVolumeList/UsbVolumeList.h"/>
+        <FILE id="P7zqyL" name="UsbVolumeList_macos.mm" compile="1" resource="0"
+              file="Source/UsbVolumeList/UsbVolumeList_macos.mm"/>
+        <FILE id="hIESUS" name="UsbVolumeList_win32.cpp" compile="1" resource="0"
+              file="Source/UsbVolumeList/UsbVolumeList_win32.cpp"/>
+      </GROUP>
+      <FILE id="HyNVIC" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+    </GROUP>
+  </MAINGROUP>
+  <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1"/>
+  <EXPORTFORMATS>
+    <VS2022 targetFolder="Builds/VisualStudio2022" extraCompilerFlags="/utf-8">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug"/>
+        <CONFIGURATION isDebug="0" name="Release"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_core" path="..\..\..\..\SDKs\JUCE-8.0.6\modules"/>
+        <MODULEPATH id="juce_data_structures" path="..\..\..\..\SDKs\JUCE-8.0.6\modules"/>
+        <MODULEPATH id="juce_events" path="..\..\..\..\SDKs\JUCE-8.0.6\modules"/>
+        <MODULEPATH id="juce_graphics" path="..\..\..\..\SDKs\JUCE-8.0.6\modules"/>
+        <MODULEPATH id="juce_gui_basics" path="..\..\..\..\SDKs\JUCE-8.0.6\modules"/>
+      </MODULEPATHS>
+    </VS2022>
+    <XCODE_MAC targetFolder="Builds/MacOSX" extraFrameworks="DiskArbitration">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug"/>
+        <CONFIGURATION isDebug="0" name="Release"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_core" path="../../../../SDKs/JUCE-8.0.6/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../../../SDKs/JUCE-8.0.6/modules"/>
+        <MODULEPATH id="juce_events" path="../../../../SDKs/JUCE-8.0.6/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../../../SDKs/JUCE-8.0.6/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../../../SDKs/JUCE-8.0.6/modules"/>
+      </MODULEPATHS>
+    </XCODE_MAC>
+  </EXPORTFORMATS>
+  <MODULES>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+  </MODULES>
+  <LIVE_SETTINGS>
+    <WINDOWS/>
+  </LIVE_SETTINGS>
+</JUCERPROJECT>
