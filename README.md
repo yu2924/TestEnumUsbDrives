@@ -18,7 +18,7 @@ This is an experiment to detect removable media, especially USB memory devices, 
 ## Target OS
 
 - Windows
-- macOs
+- macOS
 
 It may work on older versions of the OS since it does not use the latest API.  
 最新のAPIを利用しているわけではないので、古いバージョンのOSでも動くかもしれません。
