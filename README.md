@@ -6,8 +6,8 @@
 This is an experiment to detect removable media, especially USB memory devices, connected to a PC.  
 これはPCに接続されているリムーバブルメディア、特にUSBメモリを検出する実験です。  
 
-- detects the appearance and disappearance of disk volumes  
-ディスクボリュームの出現と消滅を検出します
+- detects the arrival and removal of disk volumes  
+ディスクボリュームの取り付けと取り外しを検出します
 - enumerate removable volumes  
 取り外し可能なボリュームを列挙します
 - for each volume, find the parent disk and any properties that might be useful to display  
