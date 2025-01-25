@@ -29,7 +29,7 @@ public:
             int ii = volumeCombo.getSelectedItemIndex();
             if((size_t)volumeList.getArray().size() <= (size_t)ii) return;
             if(volumeList.isEjecting()) return;
-            volumeList.ejectWholeDevice(ii, [this](const juce::Result& r)
+            volumeList.ejectWholeDevice(volumeList.getArray().getReference(ii).deviceInstance, [this](const juce::Result& r)
             {
                 if(r.failed())
                 {

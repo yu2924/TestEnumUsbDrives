@@ -143,14 +143,12 @@ public:
 	{
 		return mVolumeList;
 	}
-	void ejectWholeDevice(int ivol, std::function<void(const juce::Result&)> callback)
+	void ejectWholeDevice(const juce::var& devinst, std::function<void(const juce::Result&)> callback)
 	{
 		JUCE_AUTORELEASEPOOL
 		{
 			if(mEjecting) { if(callback) callback(juce::Result::fail("nested invocation")); return; }
-			if((size_t)mVolumeList.size() <= (size_t)ivol) { if(callback) callback(juce::Result::fail("invalid index")); return; }
-			const Volume& vol = mVolumeList.getReference(ivol);
-			DADiskRef wdisk = DADiskCreateFromBSDName(kCFAllocatorDefault, mDASession, vol.deviceInstance.toString().toRawUTF8());
+			DADiskRef wdisk = DADiskCreateFromBSDName(kCFAllocatorDefault, mDASession, devinst.toString().toRawUTF8());
 			if(!wdisk) { if(callback) callback(juce::Result::fail("disk not found")); return; }
 			mEjectCallback = callback;
 			mEjecting = true;
@@ -158,6 +156,12 @@ public:
 			DADiskUnmount(wdisk, kDADiskUnmountOptionWhole, handleDiskUnmount, this);
 			CFRelease(wdisk);
 		}
+	}
+	void ejectWholeDeviceAtIndex(int ivol, std::function<void(const juce::Result&)> callback)
+	{
+		if((size_t)mVolumeList.size() <= (size_t)ivol) { if(callback) callback(juce::Result::fail("invalid index")); return; }
+		const Volume& vol = mVolumeList.getReference(ivol);
+		ejectWholeDevice(vol.deviceInstance, callback);
 	}
 	bool isEjecting() const
 	{
@@ -204,7 +208,8 @@ UsbVolumeList::UsbVolumeList() { impl = std::make_unique<Impl>(this); }
 UsbVolumeList::~UsbVolumeList() { impl.reset(); }
 void UsbVolumeList::refresh() { impl->refresh(); }
 const juce::Array<UsbVolumeList::Volume>& UsbVolumeList::getArray() const { return impl->getArray(); }
-void UsbVolumeList::ejectWholeDevice(int ivol, std::function<void(const juce::Result&)> callback) { impl->ejectWholeDevice(ivol, callback); }
+void UsbVolumeList::ejectWholeDevice(const juce::var& devinst, std::function<void(const juce::Result&)> callback) { impl->ejectWholeDevice(devinst, callback); }
+void UsbVolumeList::ejectWholeDeviceAtIndex(int ivol, std::function<void(const juce::Result&)> callback) { impl->ejectWholeDeviceAtIndex(ivol, callback); }
 bool UsbVolumeList::isEjecting() const { return impl->isEjecting(); }
 
 #endif // JUCE_MAC

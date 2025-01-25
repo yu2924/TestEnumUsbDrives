@@ -37,6 +37,7 @@ public:
 	virtual ~UsbVolumeList();
 	void refresh();
 	const juce::Array<Volume>& getArray() const;
-	void ejectWholeDevice(int ivol, std::function<void(const juce::Result&)> callback);
+	void ejectWholeDevice(const juce::var& devinst, std::function<void(const juce::Result&)> callback);
+	void ejectWholeDeviceAtIndex(int ivol, std::function<void(const juce::Result&)> callback);
 	bool isEjecting() const;
 };

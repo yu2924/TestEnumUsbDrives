@@ -283,16 +283,13 @@ public:
 	{
 		return mVolumeList;
 	}
-	void ejectWholeDevice(int ivol, std::function<void(const juce::Result&)> callback)
+	void ejectWholeDevice(const juce::var& devinst, std::function<void(const juce::Result&)> callback)
 	{
 		if(mEjecting) { if(callback) callback(juce::Result::fail("nested invocation")); return; }
-		if((size_t)mVolumeList.size() <= (size_t)ivol) { if(callback) callback(juce::Result::fail("invalid index")); return; }
 		mEjecting = true;
-		const Volume& vol = mVolumeList.getReference(ivol);
-		DEVINST devinst = (juce::int32)vol.deviceInstance;
 		PNP_VETO_TYPE vt = PNP_VetoTypeUnknown;
 		WCHAR vname[MAX_PATH] = {};
-		CONFIGRET r = CM_Request_Device_EjectW(devinst, &vt, vname, _countof(vname), 0);
+		CONFIGRET r = CM_Request_Device_EjectW((DEVINST)(juce::int32)devinst, &vt, vname, _countof(vname), 0);
 		mEjecting = false;
 		if(r == CR_SUCCESS)
 		{
@@ -306,6 +303,12 @@ public:
 			if(callback) callback(juce::Result::fail(err));
 		}
 	}
+	void ejectWholeDeviceAtIndex(int ivol, std::function<void(const juce::Result&)> callback)
+	{
+		if((size_t)mVolumeList.size() <= (size_t)ivol) { if(callback) callback(juce::Result::fail("invalid index")); return; }
+		const Volume& vol = mVolumeList.getReference(ivol);
+		ejectWholeDevice(vol.deviceInstance, callback);
+	}
 	bool isEjecting() const
 	{
 		return mEjecting;
@@ -316,7 +319,8 @@ UsbVolumeList::UsbVolumeList() { impl = std::make_unique<Impl>(this); }
 UsbVolumeList::~UsbVolumeList() { impl.reset(); }
 void UsbVolumeList::refresh() { impl->refresh(); }
 const juce::Array<UsbVolumeList::Volume>& UsbVolumeList::getArray() const { return impl->getArray(); }
-void UsbVolumeList::ejectWholeDevice(int ivol, std::function<void(const juce::Result&)> callback) { return impl->ejectWholeDevice(ivol, callback); }
+void UsbVolumeList::ejectWholeDevice(const juce::var& devinst, std::function<void(const juce::Result&)> callback) { impl->ejectWholeDevice(devinst, callback); }
+void UsbVolumeList::ejectWholeDeviceAtIndex(int ivol, std::function<void(const juce::Result&)> callback) { impl->ejectWholeDeviceAtIndex(ivol, callback); }
 bool UsbVolumeList::isEjecting() const { return impl->isEjecting(); }
 
 #endif // JUCE_WINDOWS
